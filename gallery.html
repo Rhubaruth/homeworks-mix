@@ -1,11 +1,14 @@
 {{ $images := .Get "images" }}
 {{ $captions := .Get "captions" }}
+{{ $galleryClass := .Get "galleryClass" | default "gallery" }}
+{{ $itemClass := .Get "itemClass" | default "gallery-item" }}
+{{ $captionClass := .Get "captionClass" | default "caption" }}
 
-<div class="gallery">
+<div class="{{ $galleryClass }}">
     {{ range $index, $image := $images }}
-        <div class="gallery-item">
+        <div class="{{ $itemClass }}">
             <img src="{{ $image }}" alt="Gallery Image {{ $index }}">
-            <div class="caption">{{ index $captions $index }}</div>
+            <div class="{{ $captionClass }}">{{ index $captions $index }}</div>
         </div>
     {{ end }}
 </div>
@@ -18,7 +21,7 @@
 
 <!-- Optional: Add JavaScript for navigation functionality -->
 <script>
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryItems = document.querySelectorAll('.{{ $itemClass }}');
     let currentIndex = 0;
 
     document.querySelector('.prev').addEventListener('click', function() {
@@ -46,20 +49,20 @@
 </script>
 
 <style>
-    .gallery {
+    .{{ $galleryClass }} {
         position: relative;
     }
-    .gallery-item {
+    .{{ $itemClass }} {
         display: none;
         position: absolute;
         top: 0;
         left: 0;
     }
-    .gallery-item img {
+    .{{ $itemClass }} img {
         width: 100%;
         height: auto;
     }
-    .caption {
+    .{{ $captionClass }} {
         position: absolute;
         bottom: 0;
         background-color: rgba(0,0,0,0.5);
