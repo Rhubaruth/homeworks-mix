@@ -1,0 +1,83 @@
+{{ $images := .Get "images" }}
+{{ $captions := .Get "captions" }}
+
+<div class="gallery">
+    {{ range $index, $image := $images }}
+        <div class="gallery-item">
+            <img src="{{ $image }}" alt="Gallery Image {{ $index }}">
+            <div class="caption">{{ index $captions $index }}</div>
+        </div>
+    {{ end }}
+</div>
+
+<!-- Optional: Add navigation controls -->
+<div class="gallery-controls">
+    <button class="prev">Previous</button>
+    <button class="next">Next</button>
+</div>
+
+<!-- Optional: Add JavaScript for navigation functionality -->
+<script>
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentIndex = 0;
+
+    document.querySelector('.prev').addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+        showCurrentImage();
+    });
+
+    document.querySelector('.next').addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % galleryItems.length;
+        showCurrentImage();
+    });
+
+    function showCurrentImage() {
+        galleryItems.forEach((item, index) => {
+            if (index === currentIndex) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Show the first image by default
+    showCurrentImage();
+</script>
+
+<style>
+    .gallery {
+        position: relative;
+    }
+    .gallery-item {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+    }
+    .caption {
+        position: absolute;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+    }
+    .gallery-controls {
+        margin-top: 10px;
+    }
+    .gallery-controls button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .gallery-controls button:hover {
+        background-color: #ccc;
+    }
+</style>
