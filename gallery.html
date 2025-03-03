@@ -13,74 +13,23 @@
     {{ end }}
 </div>
 
-<!-- Optional: Add navigation controls -->
-<div class="gallery-controls">
-    <button class="prev">Previous</button>
-    <button class="next">Next</button>
-</div>
-
-<!-- Optional: Add JavaScript for navigation functionality -->
-<script>
-    const galleryItems = document.querySelectorAll('.{{ $itemClass }}');
-    let currentIndex = 0;
-
-    document.querySelector('.prev').addEventListener('click', function() {
-        currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-        showCurrentImage();
-    });
-
-    document.querySelector('.next').addEventListener('click', function() {
-        currentIndex = (currentIndex + 1) % galleryItems.length;
-        showCurrentImage();
-    });
-
-    function showCurrentImage() {
-        galleryItems.forEach((item, index) => {
-            if (index === currentIndex) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    }
-
-    // Show the first image by default
-    showCurrentImage();
-</script>
-
 <style>
     .{{ $galleryClass }} {
-        position: relative;
+        display: flex;
+        flex-wrap: wrap;
     }
     .{{ $itemClass }} {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
+        margin: 10px;
+        width: calc(33.33% - 20px);
     }
     .{{ $itemClass }} img {
         width: 100%;
         height: auto;
     }
     .{{ $captionClass }} {
-        position: absolute;
-        bottom: 0;
         background-color: rgba(0,0,0,0.5);
         color: white;
         padding: 5px;
-        width: 100%;
         text-align: center;
-    }
-    .gallery-controls {
-        margin-top: 10px;
-    }
-    .gallery-controls button {
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .gallery-controls button:hover {
-        background-color: #ccc;
     }
 </style>
