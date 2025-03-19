@@ -1,0 +1,35 @@
+{{ $images := .Get "images" }}
+{{ $captions := .Get "captions" }}
+{{ $galleryClass := .Get "galleryClass" | default "gallery" }}
+{{ $itemClass := .Get "itemClass" | default "gallery-item" }}
+{{ $captionClass := .Get "captionClass" | default "caption" }}
+
+<div class="{{ $galleryClass }}">
+    {{ range $index, $image := $images }}
+        <div class="{{ $itemClass }}">
+            <img src="{{ $image }}" alt="Gallery Image {{ $index }}">
+            <div class="{{ $captionClass }}">{{ index $captions $index }}</div>
+        </div>
+    {{ end }}
+</div>
+
+<style>
+    .{{ $galleryClass }} {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .{{ $itemClass }} {
+        margin: 10px;
+        width: calc(33.33% - 20px);
+    }
+    .{{ $itemClass }} img {
+        width: 100%;
+        height: auto;
+    }
+    .{{ $captionClass }} {
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 5px;
+        text-align: center;
+    }
+</style>
